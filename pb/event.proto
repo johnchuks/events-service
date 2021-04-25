@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package pb;
+
+import "google/protobuf/struct.proto";
+
+option go_package = "github.com/johnchuks/events-service/pb";
+
+service EventService {
+  rpc Create(EventRequest) returns (CreateEventResponse) {}
+}
+
+message EventRequest {
+  int64 id = 1;
+  string createdAt = 2;
+  string email = 3;
+  string environment = 4;
+  string component = 5;
+  .google.protobuf.Struct data = 6;
+}
+
+message CreateEventResponse {
+  string message = 1;
+}
+
+message ListEventResponse {
+  repeated EventRequest events = 1;
+}
