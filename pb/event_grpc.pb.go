@@ -18,7 +18,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type EventServiceClient interface {
-	Create(ctx context.Context, in *EventRequest, opts ...grpc.CallOption) (*CreateEventResponse, error)
+	Create(ctx context.Context, in *CreateEventRequest, opts ...grpc.CallOption) (*CreateEventResponse, error)
 }
 
 type eventServiceClient struct {
@@ -29,7 +29,7 @@ func NewEventServiceClient(cc grpc.ClientConnInterface) EventServiceClient {
 	return &eventServiceClient{cc}
 }
 
-func (c *eventServiceClient) Create(ctx context.Context, in *EventRequest, opts ...grpc.CallOption) (*CreateEventResponse, error) {
+func (c *eventServiceClient) Create(ctx context.Context, in *CreateEventRequest, opts ...grpc.CallOption) (*CreateEventResponse, error) {
 	out := new(CreateEventResponse)
 	err := c.cc.Invoke(ctx, "/pb.EventService/Create", in, out, opts...)
 	if err != nil {
@@ -42,7 +42,7 @@ func (c *eventServiceClient) Create(ctx context.Context, in *EventRequest, opts 
 // All implementations must embed UnimplementedEventServiceServer
 // for forward compatibility
 type EventServiceServer interface {
-	Create(context.Context, *EventRequest) (*CreateEventResponse, error)
+	Create(context.Context, *CreateEventRequest) (*CreateEventResponse, error)
 	mustEmbedUnimplementedEventServiceServer()
 }
 
@@ -50,7 +50,7 @@ type EventServiceServer interface {
 type UnimplementedEventServiceServer struct {
 }
 
-func (UnimplementedEventServiceServer) Create(context.Context, *EventRequest) (*CreateEventResponse, error) {
+func (UnimplementedEventServiceServer) Create(context.Context, *CreateEventRequest) (*CreateEventResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
 func (UnimplementedEventServiceServer) mustEmbedUnimplementedEventServiceServer() {}
@@ -67,7 +67,7 @@ func RegisterEventServiceServer(s grpc.ServiceRegistrar, srv EventServiceServer)
 }
 
 func _EventService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(EventRequest)
+	in := new(CreateEventRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -79,7 +79,7 @@ func _EventService_Create_Handler(srv interface{}, ctx context.Context, dec func
 		FullMethod: "/pb.EventService/Create",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(EventServiceServer).Create(ctx, req.(*EventRequest))
+		return srv.(EventServiceServer).Create(ctx, req.(*CreateEventRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

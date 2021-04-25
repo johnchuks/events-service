@@ -7,22 +7,21 @@ import "google/protobuf/struct.proto";
 option go_package = "github.com/johnchuks/events-service/pb";
 
 service EventService {
-  rpc Create(EventRequest) returns (CreateEventResponse) {}
+  rpc Create(CreateEventRequest) returns (CreateEventResponse) {}
 }
 
-message EventRequest {
-  int64 id = 1;
-  string createdAt = 2;
+message CreateEventRequest {
   string email = 3;
   string environment = 4;
   string component = 5;
-  .google.protobuf.Struct data = 6;
+  string message = 6;
+  .google.protobuf.Struct data = 7;
 }
 
 message CreateEventResponse {
   string message = 1;
 }
 
-message ListEventResponse {
-  repeated EventRequest events = 1;
-}
+// message ListEventResponse {
+//   repeated EventRequest events = 1;
+// }
