@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+  db:
+    build: 
+      context: ./db
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "5436:5432"
+    environment:
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+  grpc:
+    build: .
+    command: ["sh", "-c", "CompileDaemon --build='go build cmd/main.go' --command=./main"]
+    ports:
+      - 50052:50051
+    depends_on: 
+      db:
+        condition: service_started
+    environment: 
+      - DATABASE_NAME=historicaldb
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_HOST=db
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+    volumes:
+      - .:/app

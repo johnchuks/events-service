@@ -19,6 +19,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type EventServiceClient interface {
 	Create(ctx context.Context, in *CreateEventRequest, opts ...grpc.CallOption) (*CreateEventResponse, error)
+	Retrieve(ctx context.Context, in *RetrieveEventRequest, opts ...grpc.CallOption) (*ListEventResponse, error)
 }
 
 type eventServiceClient struct {
@@ -38,11 +39,21 @@ func (c *eventServiceClient) Create(ctx context.Context, in *CreateEventRequest,
 	return out, nil
 }
 
+func (c *eventServiceClient) Retrieve(ctx context.Context, in *RetrieveEventRequest, opts ...grpc.CallOption) (*ListEventResponse, error) {
+	out := new(ListEventResponse)
+	err := c.cc.Invoke(ctx, "/pb.EventService/Retrieve", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // EventServiceServer is the server API for EventService service.
 // All implementations must embed UnimplementedEventServiceServer
 // for forward compatibility
 type EventServiceServer interface {
 	Create(context.Context, *CreateEventRequest) (*CreateEventResponse, error)
+	Retrieve(context.Context, *RetrieveEventRequest) (*ListEventResponse, error)
 	mustEmbedUnimplementedEventServiceServer()
 }
 
@@ -52,6 +63,9 @@ type UnimplementedEventServiceServer struct {
 
 func (UnimplementedEventServiceServer) Create(context.Context, *CreateEventRequest) (*CreateEventResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
+}
+func (UnimplementedEventServiceServer) Retrieve(context.Context, *RetrieveEventRequest) (*ListEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Retrieve not implemented")
 }
 func (UnimplementedEventServiceServer) mustEmbedUnimplementedEventServiceServer() {}
 
@@ -84,6 +98,24 @@ func _EventService_Create_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _EventService_Retrieve_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RetrieveEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EventServiceServer).Retrieve(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.EventService/Retrieve",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EventServiceServer).Retrieve(ctx, req.(*RetrieveEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // EventService_ServiceDesc is the grpc.ServiceDesc for EventService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -94,6 +126,10 @@ var EventService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Create",
 			Handler:    _EventService_Create_Handler,
+		},
+		{
+			MethodName: "Retrieve",
+			Handler:    _EventService_Retrieve_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
