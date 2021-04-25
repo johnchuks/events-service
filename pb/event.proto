@@ -28,11 +28,11 @@ message CreateEventResponse {
 }
 
 message RetrieveEventRequest {
-  string email = 1;
-  string environment = 2;
-  string component = 3;
-  string text = 4;
-  string date =5;
+  optional string email = 1;
+  optional string environment = 2;
+  optional string component = 3;
+  optional string text = 4;
+  optional string date =5;
 }
 
 message ListEventResponse {

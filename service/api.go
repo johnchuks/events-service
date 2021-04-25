@@ -20,6 +20,7 @@ type service struct {
 // Service interface describes a service that adds numbers
 type Service interface {
     Create(ctx context.Context, email, component, environment, message string, data map[string]string) (*models.Event, error)
+    Retrieve(ctx context.Context, filter map[string]interface{}) ([]*models.Event, error)
 }
 
 // NewService returns a Service with all of the expected dependencies
@@ -44,7 +45,7 @@ func NewService(host, port, user, password, dbname string) Service {
 }
 
 // Create func implements Service interface
-func (s *service) Create(ctx context.Context, email, component, environment, message string, data map[string]string) (*models.Event, error) {
+func (s service) Create(ctx context.Context, email, component, environment, message string, data map[string]string) (*models.Event, error) {
     val, _ := json.Marshal(data)
     e := &models.Event{
         Email: email,
@@ -60,4 +61,17 @@ func (s *service) Create(ctx context.Context, email, component, environment, mes
     }
     fmt.Println(event, "====EVVVETTTTHHHFF>>>>>")
     return event, nil
+}
+
+// Retrieve func implements Service interface Retrieve Method
+func (s service) Retrieve(ctx context.Context, filters map[string]interface{}) ([]*models.Event, error) {
+    e := &models.Event{}
+
+    events, err := e.Retrieve(s.DB, filters)
+
+    if err != nil {
+        return nil, err
+    }
+
+    return events, nil
 }

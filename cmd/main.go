@@ -31,10 +31,10 @@ func main() {
         log.Error("An Error occcurred", err)
         os.Exit(1)
     }
-	baseServer := grpc.NewServer()
-	pb.RegisterEventServiceServer(baseServer, grpcServer)
+	server := grpc.NewServer()
+	pb.RegisterEventServiceServer(server, grpcServer)
 	log.Info("gRPC Server started successfully 🚀")
-	baseServer.Serve(grpcListener)
+	server.Serve(grpcListener)
 
 	log.Error(<-errs)
 

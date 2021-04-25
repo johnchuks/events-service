@@ -1,7 +1,7 @@
 package models
 
 import (
-	"fmt"
+	// "fmt"
 	"net/mail"
 	"strings"
 	"errors"
@@ -46,3 +46,17 @@ func isEmailValid(email string) bool {
     return err == nil
 }
 
+
+func (e *Event) Retrieve(db *gorm.DB, filters map[string]interface{}) ([]*Event, error) {
+	var err error
+
+	var events []*Event
+
+	db.Where(filters).Find(&events)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return events, nil
+}
