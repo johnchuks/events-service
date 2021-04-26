@@ -46,7 +46,7 @@ func isEmailValid(email string) bool {
     return err == nil
 }
 
-
+// Retrieve retrieves all events that matches a filter map
 func (e *Event) Retrieve(db *gorm.DB, filters map[string]interface{}) ([]*Event, error) {
 	var (
 		events []*Event
@@ -57,7 +57,6 @@ func (e *Event) Retrieve(db *gorm.DB, filters map[string]interface{}) ([]*Event,
 	if val, ok := filters["date"]; ok {
 		layout := "2-1-2006"
 		createdAt, _ = time.Parse(layout, val.(string))
-		fmt.Println(createdAt)
 		delete(filters, "date")
 		query.Where("created_at > ?", createdAt)
 	}

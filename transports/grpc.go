@@ -1,29 +1,28 @@
 package transport
 
 import (
-	"fmt"
     "context"
 
-    gt "github.com/go-kit/kit/transport/grpc"
+    gkit "github.com/go-kit/kit/transport/grpc"
     "github.com/johnchuks/events-service/endpoints"
     "github.com/johnchuks/events-service/pb"
 )
 
 type gRPCServer struct {
-	create gt.Handler
-	retrieve gt.Handler
+	create gkit.Handler
+	retrieve gkit.Handler
 	pb.UnimplementedEventServiceServer
 }
 
 // NewGRPCServer initializes a new gRPC server
 func NewGRPCServer(endpoints endpoints.Endpoints) pb.EventServiceServer {
     return &gRPCServer{
-		create: gt.NewServer(
+		create: gkit.NewServer(
 			endpoints.Create, 
 			decodeCreateEventRequest,
 			encodeCreateEventResponse,
 		),
-		retrieve: gt.NewServer(
+		retrieve: gkit.NewServer(
 			endpoints.Retrieve,
 			decodeRetrieveEventRequest,
 			encodeRetrieveEventResponse,
@@ -76,7 +75,6 @@ func encodeCreateEventResponse(_ context.Context, response interface{}) (interfa
 
 func decodeRetrieveEventRequest(_ context.Context, request interface{}) (interface{}, error) {
 	req := request.(*pb.RetrieveEventRequest)
-	fmt.Println(req)
 	return endpoints.RetrieveEventRequest{
 		Email: derefString(req.Email),
 		Component: derefString(req.Component),
@@ -107,8 +105,6 @@ func encodeRetrieveEventResponse(_ context.Context, response interface{}) (inter
 	}
     return r, nil
 }
-
-
 
 func derefString(s *string) string {
     if s != nil {
