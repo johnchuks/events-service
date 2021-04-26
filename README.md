@@ -62,8 +62,7 @@ The backend uses a 3 layer architecture pattern which comprises of a `Transport`
 
 The Backend adheres to Separation of Concerns which makes it very easy to test. Every layer in the backend will be unit tested. Also, integration tests will be utilized to test the system in general.
 
-For naive testing or manual testing of gRPC, there is a great tool I normally use which I highly recommend. It exposes a GUI for your services based on the proto. 
-`BloomRPC` (https://github.com/uw-labs/bloomrpc) is very easy to setup and start testing immediately. 
+For naive testing or manual testing of gRPC, there is a great tool I normally use which I highly recommend. It exposes a GUI for your services based on the `.proto` file. `BloomRPC` (https://github.com/uw-labs/bloomrpc) is very easy to setup and start testing immediately. 
 
 Ensure the correct URL is passed to the URL field on the app.
 
