@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"github.com/go-kit/kit/endpoint"
 	"github.com/johnchuks/events-service/service"
-	// "gorm.io/datatypes"
 	"reflect"
 	"strings"
 	"time"

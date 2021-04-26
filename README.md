@@ -47,6 +47,15 @@ Finally we can go to `0.0.0.0:50052` to communicate with our gRPC server.
 To bring down all running containers and network, Run `docker-compose down`.
 
 
+## Testing
+
+The Backend adheres to Separation of Concerns which makes it very easy to test. Every layer in the backend will be unit tested. Also, integration tests will be utilized to test the system in general.
+
+For naive testing or manual testing of gRPC, there is a great tool I normally use which I highly recommend. It exposes a GUI for your services based on the `.proto` file. `BloomRPC` (https://github.com/uw-labs/bloomrpc) is very easy to setup and start testing immediately. 
+
+Ensure the correct URL is passed to the URL field on the app.
+
+
 ## Architecture
 The backend uses a 3 layer architecture pattern which comprises of a `Transport`, `Service` and `Endpoint` layer.
 
@@ -59,16 +68,6 @@ The backend uses a 3 layer architecture pattern which comprises of a `Transport`
 - Create : Adds a new historical Event
 
 - Retrieve: Retrieves all historical events that match a certain criteria or filters. All filters are optional and represented in this order {"text": "hello", "email": "example@test.com"}
-
-
-## Testing
-
-The Backend adheres to Separation of Concerns which makes it very easy to test. Every layer in the backend will be unit tested. Also, integration tests will be utilized to test the system in general.
-
-For naive testing or manual testing of gRPC, there is a great tool I normally use which I highly recommend. It exposes a GUI for your services based on the `.proto` file. `BloomRPC` (https://github.com/uw-labs/bloomrpc) is very easy to setup and start testing immediately. 
-
-Ensure the correct URL is passed to the URL field on the app.
-
 
 ## Questions
 
