@@ -1,5 +1,5 @@
 # Events Service
-This project is a simple backend service that logs historical events built with `GoLang`, `GoKit` (https://gokit.io/) and `gRPC` as the transport layer. `PostgreSQL` was chosen as the choice database for this application. The project  
+This project is a simple backend service that logs historical events built with `GoLang`, `GoKit` (https://gokit.io/) and `gRPC` as the transport layer. `PostgreSQL` was chosen as the choice database for this application.
 
 ## Getting Started
 
