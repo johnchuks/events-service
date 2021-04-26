@@ -72,6 +72,10 @@ Ensure the correct URL is passed to the URL field on the app.
 
 ## Questions
 
-Would any Cache be used? I suggest adding caching to this architecture in the service layer. A `cache-aside` strategy is highly recommended for retrieving data from the service.
+- Would any Cache be used? 
 
-Are there any kind of strategy for saving to the DB? To increase performance, an efficient approach would be to batch the write queries to the database instead of hitting the database for every single write query.
+    - I suggest adding caching to this architecture in the service layer. A `cache-aside` strategy is highly recommended for retrieving data from the service because our request will be directed to the cache first before making any database query. If the data is changed in the database, the cache is freed of the old data and subsequent requests ensures the data is added back to the cache.
+
+
+- Are there any kind of strategy for saving to the DB? 
+    - To increase performance, an efficient approach would be to batch the write queries to the database instead of hitting the database for every single write query. Another optimization strategy is having a `Master-slave` replication where all writes request are handled by the master DB and the Reads queries are shared among the slave nodes.
