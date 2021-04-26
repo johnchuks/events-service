@@ -1,5 +1,5 @@
 # Events Service
-The project contains the backend code for logging historical events built with `GoLang`, `GoKit` (https://gokit.io/) and `gRPC` as the transport layer. `PostgreSQL` was chosen as the choice database for this application 
+This project is a simple backend service that logs historical events built with `GoLang`, `GoKit` (https://gokit.io/) and `gRPC` as the transport layer. `PostgreSQL` was chosen as the choice database for this application. The project  
 
 ## Getting Started
 
@@ -8,9 +8,8 @@ These instructions will get you a copy of the app up and running on your local m
 ### Prerequisites
 
 Things you need to install the software and how to install them
-- Ensure you have `Docker` installed on your local machine
-- Ensure you have `Go` installed as well
-- Ensure you have `Docker Compose` installed by checking the current version like so
+- Ensure you have `Docker` and `Go` installed on your local machine
+- You can check if `Docker Compose` was installed on your machine like so 
 
 ```
 docker-compose --version
