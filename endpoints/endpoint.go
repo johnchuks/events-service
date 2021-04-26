@@ -73,7 +73,7 @@ func makeCreateEndpoint(s service.Service) endpoint.Endpoint {
 			Email:       result.Email,
 			Message:     result.Message,
 			Environment: result.Environment,
-			Component:   result.Environment,
+			Component:   result.Component,
 			Data:        data,
 			CreatedAt:   result.CreatedAt,
 		}, nil
