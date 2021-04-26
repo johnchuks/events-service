@@ -32,16 +32,19 @@ After cloning the repository, we will need to enter the current directory of the
 cd events-service
 ```
 
-Create a `.env` file and add your `DATABASE_USER` and `DATABASE_PASSWORD` as shown in the `.env-sample` file.
+Create a `.env` file and add a `DATABASE_USER` and `DATABASE_PASSWORD` of your choice as shown in the `.env-sample` file. The PostgreSQL docker image automatically creates a database user and password on startup with the provided `DATABASE_USER` and `DATABASE_PASSWORD`.
 
 We need to build and run the `docker` images for the `grpc` and `database`. Our containers are currently orchestrated using `docker-compose`.
 
 To build and run the container, we use this command below
+
 ```
 docker-compose up --build
 ```
 
-Finally we can go to `0.0.0.0:500052` to communicate with our gRPC server.
+Finally we can go to `0.0.0.0:50052` to communicate with our gRPC server.
+
+To bring down all running containers and network, Run `docker-compose down`.
 
 
 ## Architecture
