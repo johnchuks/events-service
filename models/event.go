@@ -1,11 +1,11 @@
 package models
 
 import (
-	// "fmt"
+	"fmt"
 	"net/mail"
 	"strings"
 	"errors"
-	// "log"
+	"time"
 	"gorm.io/gorm"
 	"gorm.io/datatypes"
 )
@@ -48,15 +48,24 @@ func isEmailValid(email string) bool {
 
 
 func (e *Event) Retrieve(db *gorm.DB, filters map[string]interface{}) ([]*Event, error) {
-	var err error
+	var (
+		events []*Event
+		createdAt time.Time
+	)
 
-	var events []*Event
-
-	db.Where(filters).Find(&events)
-
-	if err != nil {
-		return nil, err
+	query := db.Model(&events)
+	if val, ok := filters["date"]; ok {
+		layout := "2-1-2006"
+		createdAt, _ = time.Parse(layout, val.(string))
+		fmt.Println(createdAt)
+		delete(filters, "date")
+		query.Where("created_at > ?", createdAt)
+	}
+	if val, ok := filters["text"]; ok {
+		query.Where("message iLIKE ?", fmt.Sprintf("%v%v%v",  "%",val,"%"))
+		delete(filters, "text")
 	}
 
+	query.Where(filters).Find(&events)
 	return events, nil
 }

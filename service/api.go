@@ -28,7 +28,6 @@ func NewService(host, port, user, password, dbname string) Service {
     dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", 
         host, port, user, password, dbname,
     )
-
     db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
     if err != nil {
@@ -59,14 +58,12 @@ func (s service) Create(ctx context.Context, email, component, environment, mess
     if err != nil {
         return nil, err
     }
-    fmt.Println(event, "====EVVVETTTTHHHFF>>>>>")
     return event, nil
 }
 
 // Retrieve func implements Service interface Retrieve Method
 func (s service) Retrieve(ctx context.Context, filters map[string]interface{}) ([]*models.Event, error) {
     e := &models.Event{}
-
     events, err := e.Retrieve(s.DB, filters)
 
     if err != nil {

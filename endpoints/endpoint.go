@@ -2,7 +2,7 @@ package endpoints
 
 import (
 	"strings"
-	"fmt"
+	// "fmt"
 	"time"
     "context"
 	"reflect"
@@ -26,7 +26,7 @@ type CreateEventRequest struct {
 	Data map[string]string `json:"data"`
 }
 
-// CreareEventResponse struct holds the endpoint response definition for a create event
+// CreateEventResponse struct holds the endpoint response definition for a create event
 type EventResponse struct {
 	ID uint `json:"id"`
 	Email string `json:"email"`
@@ -37,6 +37,7 @@ type EventResponse struct {
 	CreatedAt time.Time `json:"createdAt"`
 }
 
+// RetrieveEventResponse struct holds the endpoint response definition for a create event
 type RetrieveEventRequest struct {
 	Email string `json:"email"`
 	Text string `json:"text"`
@@ -95,7 +96,6 @@ func makeRetrieveEndpoint(s service.Service) endpoint.Endpoint {
 				filter[key] = v.Field(i).Interface()
 			}
 		}
-		fmt.Println(filter, "====>>S>>S>")
 		results, err := s.Retrieve(ctx, filter)
 		var events []EventResponse
 		
