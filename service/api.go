@@ -18,7 +18,7 @@ type service struct {
 // Service interface describes a service that adds numbers
 type Service interface {
 	Create(ctx context.Context, email, component, environment, message string, data map[string]string) (*models.Event, error)
-	Retrieve(ctx context.Context, filter map[string]interface{}) ([]*models.Event, error)
+	Retrieve(ctx context.Context, filter map[string]interface{}) ([]map[string]interface{}, error)
 }
 
 // NewService returns a Service with all of the expected dependencies
@@ -60,7 +60,7 @@ func (s service) Create(ctx context.Context, email, component, environment, mess
 }
 
 // Retrieve func implements Service interface Retrieve Method
-func (s service) Retrieve(ctx context.Context, filters map[string]interface{}) ([]*models.Event, error) {
+func (s service) Retrieve(ctx context.Context, filters map[string]interface{}) ([]map[string]interface{}, error) {
 	e := &models.Event{}
 	events, err := e.Retrieve(s.DB, filters)
 

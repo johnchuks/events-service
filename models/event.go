@@ -46,10 +46,11 @@ func isEmailValid(email string) bool {
 }
 
 // Retrieve retrieves all events that matches a filter map
-func (e *Event) Retrieve(db *gorm.DB, filters map[string]interface{}) ([]*Event, error) {
+func (e *Event) Retrieve(db *gorm.DB, filters map[string]interface{}) ([]map[string]interface{}, error) {
 	var (
 		events    []*Event
 		createdAt time.Time
+		ev []map[string]interface{}
 	)
 
 	query := db.Model(&events)
@@ -64,6 +65,6 @@ func (e *Event) Retrieve(db *gorm.DB, filters map[string]interface{}) ([]*Event,
 		delete(filters, "text")
 	}
 
-	query.Where(filters).Find(&events)
-	return events, nil
+	query.Where(filters).Find(&ev)
+	return ev, nil
 }

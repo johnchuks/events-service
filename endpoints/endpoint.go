@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"github.com/go-kit/kit/endpoint"
 	"github.com/johnchuks/events-service/service"
+	// "gorm.io/datatypes"
 	"reflect"
 	"strings"
 	"time"
@@ -100,16 +101,16 @@ func makeRetrieveEndpoint(s service.Service) endpoint.Endpoint {
 
 		for _, event := range results {
 			var data map[string]string
-			_ = json.Unmarshal([]byte(event.Data.String()), &data)
+			_ = json.Unmarshal([]byte(event["data"].(string)), &data)
 
 			e := EventResponse{
-				ID:          event.ID,
-				Email:       event.Email,
-				Message:     event.Message,
-				Environment: event.Environment,
-				Component:   event.Component,
+				ID:          event["id"].(uint),
+				Email:       event["email"].(string),
+				Message:     event["message"].(string),
+				Environment: event["environment"].(string),
+				Component:   event["component"].(string),
 				Data:        data,
-				CreatedAt:   event.CreatedAt,
+				CreatedAt:   event["created_at"].(time.Time),
 			}
 			events = append(events, e)
 		}
