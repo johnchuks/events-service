@@ -51,11 +51,11 @@ The backend uses a 3 layer architecture pattern which comprises of a `Transport`
 
 `Service` - The service layer in this architecture is where the core business logic is located. The service layer is connected to the database and we are able to make queries with `gorm` ORM.
 
-`Endpoint` - The endpoint layer defines an HTTP request handler or in our an RPC method. Based on the proto file we currently have two RPC methods.
+`Endpoint` - The endpoint layer defines an HTTP request handler or in our case an RPC method. Based on the proto file we currently have two RPC methods.
 
-    Create : Adds a new historical Event
+- Create : Adds a new historical Event
 
-    Retrieve: Retrieves all historical events that match a certain criteria or filters. All filters are optional and represented in this order {"text": "hello", "email": "example@test.com"}
+- Retrieve: Retrieves all historical events that match a certain criteria or filters. All filters are optional and represented in this order {"text": "hello", "email": "example@test.com"}
 
 
 ## Testing
