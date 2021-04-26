@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-// User definition
+// Event definition
 type Event struct {
 	gorm.Model
 	Email       string         `gorm:"type:varchar(100);unique" validate:"required unique" json:"email"`
