@@ -1,25 +1,24 @@
 package models
 
 import (
+	"errors"
 	"fmt"
+	"gorm.io/datatypes"
+	"gorm.io/gorm"
 	"net/mail"
 	"strings"
-	"errors"
 	"time"
-	"gorm.io/gorm"
-	"gorm.io/datatypes"
 )
 
 // User definition
 type Event struct {
 	gorm.Model
-	Email string `gorm:"type:varchar(100);unique" validate:"required unique" json:"email"`
-	Environment string `gorm:"type:varchar(100)" json:"environment"`
-	Component string `gorm:"type:varchar(100)" json:"component"`
-	Message string `gorm:"type:varchar(100)" json:"message"`
-	Data datatypes.JSON `json:"data"`
+	Email       string         `gorm:"type:varchar(100);unique" validate:"required unique" json:"email"`
+	Environment string         `gorm:"type:varchar(100)" json:"environment"`
+	Component   string         `gorm:"type:varchar(100)" json:"component"`
+	Message     string         `gorm:"type:varchar(100)" json:"message"`
+	Data        datatypes.JSON `json:"data"`
 }
-
 
 // Strip removes all whitespaces from the request body
 func (e *Event) Strip() {
@@ -42,14 +41,14 @@ func (e *Event) Create(db *gorm.DB) (*Event, error) {
 }
 
 func isEmailValid(email string) bool {
-    _, err := mail.ParseAddress(email)
-    return err == nil
+	_, err := mail.ParseAddress(email)
+	return err == nil
 }
 
 // Retrieve retrieves all events that matches a filter map
 func (e *Event) Retrieve(db *gorm.DB, filters map[string]interface{}) ([]*Event, error) {
 	var (
-		events []*Event
+		events    []*Event
 		createdAt time.Time
 	)
 
@@ -61,7 +60,7 @@ func (e *Event) Retrieve(db *gorm.DB, filters map[string]interface{}) ([]*Event,
 		query.Where("created_at > ?", createdAt)
 	}
 	if val, ok := filters["text"]; ok {
-		query.Where("message iLIKE ?", fmt.Sprintf("%v%v%v",  "%",val,"%"))
+		query.Where("message iLIKE ?", fmt.Sprintf("%v%v%v", "%", val, "%"))
 		delete(filters, "text")
 	}
 
