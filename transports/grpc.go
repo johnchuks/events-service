@@ -66,7 +66,7 @@ func encodeCreateEventResponse(_ context.Context, response interface{}) (interfa
 		Environment: resp.Environment,
 		Message:     resp.Message,
 		Data:        resp.Data,
-		CreatedAt:   resp.CreatedAt.String(),
+		CreatedAt:   resp.CreatedAt.Unix(),
 	}, nil
 }
 
@@ -93,7 +93,7 @@ func encodeRetrieveEventResponse(_ context.Context, response interface{}) (inter
 			Environment: r.Environment,
 			Message:     r.Message,
 			Data:        r.Data,
-			CreatedAt:   r.CreatedAt.String(),
+			CreatedAt:   r.CreatedAt.Unix(),
 		}
 		events = append(events, e)
 	}

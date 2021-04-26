@@ -24,7 +24,7 @@ message CreateEventResponse {
   string environment = 4;
   string component = 5;
   map<string, string> data = 6;
-  string createdAt = 7;
+  int64 createdAt = 7;
 }
 
 message RetrieveEventRequest {
