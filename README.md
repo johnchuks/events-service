@@ -1,4 +1,4 @@
-# events-service
+# Events Service
 The project contains the backend code for logging historical events built with `GoLang`, `GoKit` (https://gokit.io/) and `gRPC` as the transport layer. `PostgreSQL` was chosen as the choice database for this application 
 
 ## Getting Started
