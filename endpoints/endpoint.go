@@ -25,7 +25,7 @@ type CreateEventRequest struct {
 	Data        map[string]string `json:"data"`
 }
 
-// CreateEventResponse struct holds the endpoint response definition for a create event
+// EventResponse struct holds the endpoint response definition for a create event
 type EventResponse struct {
 	ID          uint              `json:"id"`
 	Email       string            `json:"email"`
@@ -36,7 +36,7 @@ type EventResponse struct {
 	CreatedAt   time.Time         `json:"createdAt"`
 }
 
-// RetrieveEventResponse struct holds the endpoint response definition for a create event
+// RetrieveEventRequest struct holds the endpoint request definition for a retrieve event
 type RetrieveEventRequest struct {
 	Email       string `json:"email"`
 	Text        string `json:"text"`
@@ -45,6 +45,7 @@ type RetrieveEventRequest struct {
 	Date        string `json:"date"`
 }
 
+// ListEventResponse struct holds the endpoint response definition for a retrieved event
 type ListEventResponse struct {
 	Events []EventResponse `json:"events"`
 }

@@ -30,6 +30,7 @@ func NewGRPCServer(endpoints endpoints.Endpoints) pb.EventServiceServer {
 	}
 }
 
+//Create defines a gRPC handler for the create event
 func (s *gRPCServer) Create(ctx context.Context, req *pb.CreateEventRequest) (*pb.CreateEventResponse, error) {
 	_, resp, err := s.create.ServeGRPC(ctx, req)
 	if err != nil {
@@ -38,6 +39,7 @@ func (s *gRPCServer) Create(ctx context.Context, req *pb.CreateEventRequest) (*p
 	return resp.(*pb.CreateEventResponse), nil
 }
 
+//Retrieve defines a gRPC handler for the retrieve event
 func (s *gRPCServer) Retrieve(ctx context.Context, req *pb.RetrieveEventRequest) (*pb.ListEventResponse, error) {
 	_, resp, err := s.retrieve.ServeGRPC(ctx, req)
 	if err != nil {
